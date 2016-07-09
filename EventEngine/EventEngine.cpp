@@ -1,5 +1,5 @@
 #include "EventEngine.h"
-#define NUMBER_OF_LAYERS 5
+
 EventEngine::EventEngine(DWORD input, DWORD output)
 	: _console(GetStdHandle(input)), _graphics(output)
 {
@@ -17,7 +17,9 @@ void EventEngine::run(Widget &c)
 		{
 			_graphics.clearScreen();
 			for (int p = 0; p < NUMBER_OF_LAYERS; ++p)
+			{
 				c.Draw(_graphics, 0, 0, p);
+			}
 			if (f != nullptr)
 			{
 				cursorVisibility = Widget::GetFocus()->GetEditable();
@@ -43,7 +45,6 @@ void EventEngine::run(Widget &c)
 					moveFocus(c, f);
 				else
 					f->KeyDown(code, chr);
-				//_graphics.moveTo(f->GetX() + f->GetText().size(), f->GetY());
 
 				redraw = true;
 			}
@@ -58,7 +59,6 @@ void EventEngine::run(Widget &c)
 			if (button == FROM_LEFT_1ST_BUTTON_PRESSED || button == RIGHTMOST_BUTTON_PRESSED)
 			{
 				c.MousePressed(x, y, button == FROM_LEFT_1ST_BUTTON_PRESSED);
-				//_graphics.moveTo(x, y);
 				redraw = true;
 			}
 			break;
@@ -84,12 +84,4 @@ void EventEngine::moveFocus(Widget &main, Widget *focused)
 			while (!controls[(++i) % controls.size()]->GetFocusFlag());
 			Widget::SetFocus(*controls[(i) % controls.size()]);
 		}
-
-
-	//auto it = find(controls.begin(), controls.end(), focused);
-	//do
-	//	if (++it >= controls.end())
-	//		it = controls.begin();
-	//while (!(*it)->GetFocusFlag());
-	//Widget::SetFocus(**it);
 }

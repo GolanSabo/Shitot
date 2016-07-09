@@ -1,6 +1,5 @@
 #include "LabelContainer.h"
 
-
 void LabelContainer::AddItem(string item, int width)
 {
 	Label* l = NULL;
@@ -66,12 +65,22 @@ void LabelContainer::ChangeLocalWidgetInFocus(int index)
 
 void LabelContainer::GetAllControls(vector<Widget*>& controls)
 {
-	Panel::GetAllControls(controls);
 	if (this == Widget::GetFocus())
 	{
-		int index = GetIndexOfWidget(_widgetInFocus) + 1 > _numberOfWidgets - 1 ? GetIndexOfWidget(_widgetInFocus) : GetIndexOfWidget(_widgetInFocus) + 1;
-		Widget::SetFocus(*_widgetList[index]);
+		if (GetIndexOfWidget(_widgetInFocus) == _numberOfWidgets - 1)
+		{
+			Widget::GetAllControls(controls);
+			return;
+		}
+		int index = ((GetIndexOfWidget(_widgetInFocus) + 1) % _numberOfWidgets);
+		ChangeLocalWidgetInFocus(index);
 	}
+	else
+	{
+		_widgetInFocus = _widgetList[0];
+		Widget::GetAllControls(controls);
+	}
+
 }
 
 LabelContainer::~LabelContainer()

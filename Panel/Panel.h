@@ -15,7 +15,8 @@ public:
 	virtual void FocusEvent();
 	void SetLayer(int layer);
 	virtual void GetAllControls(vector<Widget*>& controls);
-
+	virtual void Hide();
+	virtual void Show();
 	~Panel();
 };
 

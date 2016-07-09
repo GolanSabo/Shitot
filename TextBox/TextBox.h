@@ -1,13 +1,11 @@
 #pragma once
 #include "../Widget/Widget.h"
 #include <map>
-//#include <functional>
+
 class TextBox :public Widget
 {
 	bool _cursorSet;
-	//map<int, function<void(char)>> _handlers;
 
-	//void RegisterHandler(vector<int> codes, function<void(char)> func);
 public:
 	TextBox(int width);
 

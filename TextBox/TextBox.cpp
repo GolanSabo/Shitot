@@ -1,5 +1,5 @@
 #include "TextBox.h"
-#define IS_CHARACHTER -1
+
 
 
 TextBox::TextBox(int width) :Widget(width, 1)

@@ -66,7 +66,6 @@ void NumericBox::MousePressed(int x, int y, bool isLeft)
 	}
 }
 
-
 NumericBox::~NumericBox()
 {
 	for (int i = 0; i < _numberOfWidgets; ++i)

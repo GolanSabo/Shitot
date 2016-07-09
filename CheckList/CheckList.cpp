@@ -34,6 +34,7 @@ void CheckList::SetSelectedIndex(int index)
 void CheckList::MousePressed(int x, int y, bool isLeft)
 {
 	y -= GetY();
+	y = y >= _numberOfWidgets ? _numberOfWidgets - 1 : y;
 	ToggleSelection(y);
 
 	LabelContainer::MousePressed(x, y, isLeft);

@@ -23,7 +23,7 @@ void Widget::SetCursorPosition(int pos)
 
 Widget::Widget(int width, int height) :_width(width), _height(height), _content(""),
 _foregroundColor(Color::White), _backgroundColor(Color::Black),
-_editable(false), _focusable(false), _cursorPosition(0)
+_editable(false), _focusable(false), _cursorPosition(0), _visibility(true)
 {
 	_borderDrawer = &(BorderFactory::instance().getNull());
 }
@@ -70,6 +70,7 @@ int Widget::GetWidth()
 {
 	return _width;
 }
+
 void Widget::SetWidth(int width)
 {
 	_width = width;
@@ -79,6 +80,7 @@ int Widget::GetHeight()
 {
 	return _height;
 }
+
 void Widget::SetHeight(int height)
 {
 	_height = height;
@@ -88,6 +90,7 @@ int Widget::GetX()
 {
 	return _x;
 }
+
 void Widget::SetX(int x)
 {
 	_x = x;
@@ -97,6 +100,7 @@ int Widget::GetY()
 {
 	return _y;
 }
+
 void Widget::SetY(int y)
 {
 	_y = y;
@@ -106,6 +110,7 @@ string Widget::GetText()
 {
 	return _content;
 }
+
 void Widget::SetText(string text)
 {
 	_content = text;
@@ -118,16 +123,20 @@ void Widget::SetBorderDrawer(BorderDrawer& borderDrawer)
 
 void Widget::Draw(Graphics g, int x, int y, int layer)
 {
-	if (layer != _layer)
+	if (layer != _layer || _visibility == false)
 		return;
 	g.setBackground(_backgroundColor);
 	g.setForeground(_foregroundColor);
 	_borderDrawer->Draw(g, x + _x - 1, y + _y - 1, _width, _height);
+	if (_content.size() > _width)
+		_content.resize(_width);
 	g.write(x + _x, y + _y, _content);
 }
 
 void Widget::FocusEvent()
 {
+	if (!_visibility)
+		return;
 	if (_focusable)
 	{
 		Color tmp = _backgroundColor;
@@ -143,6 +152,8 @@ Widget* Widget::GetFocus()
 
 void Widget::SetFocus(Widget& wid)
 {
+	if (!wid.GetVisibility())
+		return;
 	if (Focused != nullptr)
 		Focused->FocusEvent();
 	Focused = &wid;
@@ -153,23 +164,40 @@ int Widget::GetLayer()
 {
 	return _layer;
 }
+
 void Widget::SetLayer(int layer)
 {
+	if (layer > NUMBER_OF_LAYERS - 1)
+		_layer = layer;
+	else if (layer < 0)
+		_layer = 0;
 	_layer = layer;
 }
 
 void Widget::GetAllControls(vector<Widget*>& controls)
 {
+	if (!_visibility)
+		return;
 	controls.push_back(this);
 }
 
 bool Widget::CheckPosition(int x, int y) const
-{	
+{
 
-	if (x < _x || x > _x + _width || y < _y || y > _y + _height)
+	if (x < _x || x > _x + _width || y < _y || y > _y + _height || !_visibility)
 		return false;
 
 	return true;
+}
+
+void Widget::Hide()
+{
+	_visibility = false;
+}
+
+void Widget::Show()
+{
+	_visibility = true;
 }
 
 Widget::~Widget()

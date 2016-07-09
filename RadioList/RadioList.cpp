@@ -30,6 +30,7 @@ int RadioList::GetSelectedIndex()
 void RadioList::MousePressed(int x, int y, bool isLeft)
 {
 	y -= GetY();
+	y = y >= _numberOfWidgets ? _numberOfWidgets - 1 : y;
 	MarkSelectedItem(y);
 	LabelContainer::MousePressed(x, y, isLeft);
 }

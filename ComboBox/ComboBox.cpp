@@ -1,7 +1,7 @@
 #include "ComboBox.h"
 
 
-ComboBox::ComboBox(int width, vector<string> items):LabelContainer(width, items, false),_openFlag(false),l1(3)
+ComboBox::ComboBox(int width, vector<string> items) :LabelContainer(width, items, false), _openFlag(false), l1(3)
 {
 	l1.SetText(" v ");
 	Panel::AddWidget(l1, width - 3, 0);
@@ -48,7 +48,6 @@ void ComboBox::Draw(Graphics g, int x, int y, int layer)
 void ComboBox::MousePressed(int x, int y, bool isLeft)
 {
 	y -= GetY();
-
 	if (y >= 0 && _openFlag)
 	{
 		SwapItems(0, y);
@@ -56,10 +55,10 @@ void ComboBox::MousePressed(int x, int y, bool isLeft)
 		if (y != 0)
 			LabelContainer::ChangeLocalWidgetInFocus(0);
 	}
-	else 
+	else
 	{
-			_openFlag = true;
-			SetHeight(_numberOfWidgets - 1);
+		_openFlag = true;
+		SetHeight(_numberOfWidgets - 1);
 	}
 }
 
@@ -89,23 +88,28 @@ void ComboBox::GetAllControls(vector<Widget*>& controls)
 {
 	if (_openFlag)
 	{
-		for (int i = 0; i < _numberOfWidgets; ++i)
+		if (this == Widget::GetFocus())
 		{
-			if(_widgetList[i] != &l1)
-				_widgetList[i]->GetAllControls(controls);
+			if (GetIndexOfWidget(_widgetInFocus) == _numberOfWidgets - 2)
+			{
+				_openFlag = false;
+				Widget::GetAllControls(controls);
+				ChangeLocalWidgetInFocus(0);
+				return;
+			}
+			int index = ((GetIndexOfWidget(_widgetInFocus) + 1) % (_numberOfWidgets - 1));
+			ChangeLocalWidgetInFocus(index);
+		}
+		else
+		{
+			_widgetInFocus = _widgetList[0];
+			Widget::GetAllControls(controls);
 		}
 	}
-	else
-		_widgetList[0]->GetAllControls(controls);
-	
-	if (this == Widget::GetFocus())
+	else 
 	{
-		int index = GetIndexOfWidget(_widgetInFocus) + 1 > _numberOfWidgets - 2 ? GetIndexOfWidget(_widgetInFocus) : GetIndexOfWidget(_widgetInFocus) + 1;
-		Widget::SetFocus(*_widgetList[index]);
+		Widget::GetAllControls(controls);
 	}
-	if (_widgetList[_numberOfWidgets - 2] == Widget::GetFocus() && _openFlag == true)
-		_openFlag = false;
-
 }
 
 ComboBox::~ComboBox()

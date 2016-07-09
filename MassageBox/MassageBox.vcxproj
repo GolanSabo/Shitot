@@ -19,14 +19,14 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{0D95EEA0-DE5E-43B6-895B-967425BE99EE}</ProjectGuid>
+    <ProjectGuid>{B8EDECAF-AA14-4C27-A635-52428E51EA3B}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>Main</RootNamespace>
+    <RootNamespace>MassageBox</RootNamespace>
     <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v140</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
@@ -146,39 +146,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Main.cpp" />
+    <ClInclude Include="MassageBox.h" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Button\Button.vcxproj">
-      <Project>{a5d915ae-4a41-4354-9c25-bd7b2aa8e3ca}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\CheckList\CheckList.vcxproj">
-      <Project>{3a299a65-4ed4-4e85-8676-199abdaac666}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\ComboBox\ComboBox.vcxproj">
-      <Project>{657327ee-bcfc-4e8f-915d-18c3f79366aa}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\EventEngine\EventEngine.vcxproj">
-      <Project>{c077164b-5bcd-4f81-a321-1e90eefc23bf}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\Label\Label.vcxproj">
-      <Project>{3fbae75c-a11e-412e-8381-4889050f59e5}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\MassageBox\MassageBox.vcxproj">
-      <Project>{b8edecaf-aa14-4c27-a635-52428e51ea3b}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\NumericBox\NumericBox.vcxproj">
-      <Project>{2b82a7f0-3579-4218-9c76-4416799c8eff}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\Panel\Panel.vcxproj">
-      <Project>{c143168c-b520-4904-80c7-c1d70e4370b5}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\RadioList\RadioList.vcxproj">
-      <Project>{9424b7cb-f250-46f7-b15d-c38c56ed57df}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\TextBox\TextBox.vcxproj">
-      <Project>{1dec33f5-4566-4342-a8a1-b20b1f5ba4c2}</Project>
-    </ProjectReference>
+    <ClCompile Include="MassageBox.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

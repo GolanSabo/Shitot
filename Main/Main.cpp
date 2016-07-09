@@ -8,6 +8,7 @@
 #include "../RadioList/RadioList.h"
 #include "../CheckList/CheckList.h"
 #include "../NumericBox/NumericBox.h"
+#include "../MassageBox/MassageBox.h"
 struct MyListener: public MouseListener
 {
 	MyListener(Widget &c) : _c(c) { }
@@ -17,6 +18,16 @@ struct MyListener: public MouseListener
 	}
 private:
 	Widget &_c;
+};
+
+class StarsBorderDrawer : public BorderDrawer
+{
+public:
+	inline void Draw(Graphics &g, int left, int top, int width, int height)const
+	{
+		char frame[]{ '*', '*', '*', '*', '*', '*' };
+		DrawFrame(g, left, top, width, height, frame);
+	}
 };
 
 int main(int argc, char **argv)
@@ -43,7 +54,7 @@ int main(int argc, char **argv)
 	tAddress.SetBorderDrawer(BorderFactory::instance().getSingle());
 	ComboBox cCountry(20, { "Israel", "Great Britain", "United States" });
 	cCountry.SetSelectedIndex(1);
-	cCountry.SetLayer(4);
+	cCountry.SetLayer(1);
 	cCountry.SetBorderDrawer(BorderFactory::instance().getSingle());
 	RadioList rSex(15, { "Male", "Female" });
 	rSex.SetBorderDrawer(BorderFactory::instance().getSingle());
@@ -58,6 +69,11 @@ int main(int argc, char **argv)
 	bSubmit.SetText("Submit");
 	bSubmit.AddListener(listener);
 	bSubmit.SetBorderDrawer(BorderFactory::instance().getDouble());
+	MassageBox m;
+	m.SetText("MassageBox!");
+	StarsBorderDrawer* b = new StarsBorderDrawer();
+	m.SetBorderDrawer(*b);
+	m.SetLayer(4);
 	Panel main;
 	main.AddWidget(lName, 1, 2);
 	main.AddWidget(lAddress, 1, 5);
@@ -71,10 +87,11 @@ int main(int argc, char **argv)
 	main.AddWidget(rSex, 25, 11);
 	main.AddWidget(clInterests, 25, 15);
 	main.AddWidget(nAge, 25, 20);
-
 	main.AddWidget(bSubmit, 1, 22);
-	Widget::SetFocus(tName);
+	main.AddWidget(m, 45, 15);
+	Widget::SetFocus(tAddress);
 	EventEngine engine;
 	engine.run(main);
 	return 0;
 }
+
