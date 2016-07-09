@@ -40,23 +40,12 @@ void Graphics::write(string s)
 {
 	WriteConsoleA(_console, s.c_str(), s.size(), nullptr, nullptr);
 }
-//
-//void Graphics::write(wstring s)
-//{
-//	WriteConsoleW(_console, s.c_str(), s.size(), nullptr, nullptr);
-//}
 
 void Graphics::write(int x, int y, string s)
 {
 	moveTo(x, y);
 	write(s);
 }
-
-//void Graphics::write(int x, int y, wstring s)
-//{
-//	moveTo(x, y);
-//	write(s);
-//}
 
 void Graphics::setCursorVisibility(bool isVisible)
 {

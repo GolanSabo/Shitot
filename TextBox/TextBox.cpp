@@ -1,7 +1,5 @@
 #include "TextBox.h"
 
-
-
 TextBox::TextBox(int width) :Widget(width, 1)
 {
 	SetEditable(true);

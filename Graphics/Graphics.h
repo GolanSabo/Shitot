@@ -3,13 +3,16 @@
 #include <string>
 #include <Windows.h>
 using namespace std;
-//enum ForegroundColor { Red, Blue, Green, Purple, Cyan, Orange, White, Black };
-//enum BackgroundColor { Red, Blue, Green, Purple, Cyan, Orange, White, Black };
 enum class BorderType { Single, Double, None };
 enum class Color { Red, Blue, Green, Purple, Cyan, Orange, White, Black };
 bool isInside(int x, int y, int left, int top, int width, int height);
 class Graphics
 {
+	HANDLE _console;
+	Color _background;
+	Color	_foreground;
+
+	void updateConsoleAttributes();
 public:
 	Graphics(DWORD stdHandle = STD_OUTPUT_HANDLE);
 	void clearScreen();
@@ -18,14 +21,7 @@ public:
 	void setForeground(Color color);
 	void write(string s);
 	void write(int x, int y, string s);
-	//void write(wstring s);
-	//void write(int x, int y, wstring s);
-	void setCursorVisibility(bool isVisible);
-private:
-	HANDLE _console;
-	Color _background;
-	Color	_foreground;
 
-	void updateConsoleAttributes();
+	void setCursorVisibility(bool isVisible);
 };
 

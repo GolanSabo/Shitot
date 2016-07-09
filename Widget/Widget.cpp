@@ -23,7 +23,7 @@ void Widget::SetCursorPosition(int pos)
 
 Widget::Widget(int width, int height) :_width(width), _height(height), _content(""),
 _foregroundColor(Color::White), _backgroundColor(Color::Black),
-_editable(false), _focusable(false), _cursorPosition(0), _visibility(true)
+_editable(false), _focusable(false), _cursorPosition(0), _visibility(true), _layer(0)
 {
 	_borderDrawer = &(BorderFactory::instance().getNull());
 }

@@ -17,6 +17,8 @@ public:
 	virtual void GetAllControls(vector<Widget*>& controls);
 	virtual void Hide();
 	virtual void Show();
+	int GetCursorPosition() = delete;
+	void SetCursorPosition(int pos) = delete;
 	~Panel();
 };
 
