@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "CppUnitTest.h"
 #include "../Label/Label.h"
-#include "../Panel/Panel.h"
+//#include "../Panel/Panel.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
